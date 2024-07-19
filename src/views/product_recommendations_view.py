@@ -8,5 +8,12 @@ class ProductRecommendationsView:
     """
     def product_recommendations(self, http_request: HttpRequest) -> HttpResponse:
         controller = ProductRecommendationsController()
+        user_id = http_request.query_params.get("user_id")
         recommendations = controller.get_recommendations()
-        return HttpResponse(status_code=200, body=recommendations)
+
+        response_body = {
+            "user_id": user_id,
+            "recommendations": recommendations
+        }
+
+        return HttpResponse(status_code=200, body=response_body)

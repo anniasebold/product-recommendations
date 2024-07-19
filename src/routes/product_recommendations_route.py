@@ -1,11 +1,10 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, jsonify
 from src.views.http_types.http_request import HttpRequest
 from src.views.product_recommendations_view import ProductRecommendationsView
 from src.errors.error_handler import handle_errors
 
-print("Loading product_recommendations Blueprint")
-product_recommendations_bp = Blueprint('product_recommendations', __name__, url_prefix='/product-recommendations')
-
+product_recommendations_bp = Blueprint('product_recommendations', __name__,
+                                        url_prefix='/product-recommendations')
 
 @product_recommendations_bp.route('/<int:user_id>', methods=["GET"])
 def product_recommendations(user_id):
