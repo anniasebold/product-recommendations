@@ -1,11 +1,28 @@
 ## 📋 Descrição
 
 A API tem como objetivo receber uma base de dados com informações de compras de produtos e a partir disso indicar produtos recomendados.
-Essa recomendação foi feita a partir de um algoritmo de recomendação previamente escolhido.
 
+## 🔎 Escolha do algoritmo
 
-Como não temos informações prévias dos usuários ou do comportamento deles, você deverá escolher e implementar um algoritmo ou heurística para a recomendação de produtos. Justifique a escolha deste algoritmo ou heurística na documentação.
+O algoritmo de recomendação foi desenvolvido para identificar e recomendar os produtos mais populares e de melhor desempenho de vendas com base em dados históricos. 
 
+Inicialmente não temos informações prévias dos usuários ou do comportamento deles, portanto, a recomendação é baseada exclusivamente em dados de vendas anteriores.
+
+### Como o algoritmo funciona:
+
+  1. Criação de Colunas:
+      - `total_sales`: Calcula o total de vendas por produto em todo o período analisado.
+      - `store_frequency`: Conta a frequência do produto em cada loja.
+      - `sales_per_store`: Soma das vendas diárias para cada combinação de produto e loja.
+
+  2. Agrupamento e Seleção:
+      - Os produtos são agrupados por `product_id` e `store_id`, e são calculados os valores de `total_sales`, `store_frequency` e `sales_per_store` para cada grupo.
+      - Para cada produto, a loja com a maior frequência e o maior número total de vendas diárias é selecionada. Isso garante que estamos considerando tanto a frequência de compra na loja quanto o volume de vendas da loja.
+
+  3. Seleção dos Produtos:
+      - Após identificar a melhor loja para cada produto, os produtos são classificados com base no total de vendas. Os 5 produtos com os maiores totais de vendas são selecionados como recomendações.
+
+- Assim, o algoritmo recomenda os 5 produtos mais vendidos, levando em conta a frequência do produto nas lojas e o total de vendas por loja. Isso gera uma recomendação mais assertiva onde são recomendados produtos que têm um alto número de vendas e que tem uma popularidade maior.
 
 ## 💻 Tecnologias utilizadas
 
@@ -22,7 +39,7 @@ Essas foram as tecnologias utilizadas para construção da aplicação de forma 
 ## Clonando o repositório
 
 ```bash
-git clone git@github.com:anniasebold/flask-openai.git
+git clone git@github.com:anniasebold/product-recommendations.git
 ```
 
 ## Configuração das variáveis de ambiente
@@ -32,7 +49,7 @@ Criação do arquivo .env
 ```bash
 touch .env
 ```
-Dentro terão duas variáveis de ambiente:
+Dentro terá uma variável de ambiente:
 
 ```bash
 FILE_PATH=xpto_sales_products_mar_may_2024.csv

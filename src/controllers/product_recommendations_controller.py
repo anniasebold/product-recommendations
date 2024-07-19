@@ -30,16 +30,16 @@ class ProductRecommendationsController:
         """
             Returns top 5 products based on sales, store frequency and sales per store.
         """
-        grouped_products = self.group_products_by_store()
+        grouped_products = self.group_by_product_and_store()
         top_store = self.get_top_store_and_sales(grouped_products)
         top_products = self.select_top_products(top_store)
         return top_products
 
-    def group_products_by_store(self):
+    def group_by_product_and_store(self):
         """
             Groups products by product_id and store_id
         """
-        grouped = self.products.groupby(['product_id', 'store_id']).agg({
+        grouped_products = self.products.groupby(['product_id', 'store_id']).agg({
             'total_sales': 'max',
             'store_frequency': 'max',
             'sales_per_store': 'max',
@@ -49,7 +49,7 @@ class ProductRecommendationsController:
             'store_name': 'first'
         }).reset_index()
 
-        return grouped
+        return grouped_products
 
     def get_top_store_and_sales(self, grouped_products):
         """
