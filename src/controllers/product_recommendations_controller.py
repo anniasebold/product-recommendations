@@ -33,6 +33,7 @@ class ProductRecommendationsController:
         grouped_products = self.group_by_product_and_store()
         top_store = self.get_top_store_and_sales(grouped_products)
         top_products = self.select_top_products(top_store)
+        self.clean_up_columns(top_products)
         return top_products
 
     def group_by_product_and_store(self):
