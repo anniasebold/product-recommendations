@@ -64,7 +64,8 @@ class ProductRecommendationsController:
             return top_store
 
         grouped_products = grouped_products.groupby('product_id')
-        top_store_grouped = grouped_products.apply(get_top_store).reset_index(drop=True)
+        top_store_grouped = grouped_products.apply(get_top_store, include_groups=False)
+        top_store_grouped= top_store_grouped.reset_index()
         return top_store_grouped
 
     def select_top_products(self, top_store_grouped):
