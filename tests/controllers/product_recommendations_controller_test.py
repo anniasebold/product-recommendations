@@ -66,3 +66,30 @@ class TestProductRecommendationsController(unittest.TestCase):
         recommendations = controller.get_recommendations()
         self.assertIsInstance(recommendations, list)
         self.assertGreater(len(recommendations), 0)
+
+    def test_get_recommendations_with_empty_top_products(self):
+        empty_df = pd.DataFrame(columns=[
+            'product_id',
+            'store_id',
+            'sales_per_day',
+            'product_title',
+            'product_price',
+            'product_image_url',
+            'store_name'
+        ])
+        patch('pandas.read_csv', return_value=empty_df).start()
+        controller = ProductRecommendationsController()
+        recommendations = controller.get_recommendations()
+        self.assertEqual(recommendations, [])
+
+    def test_file_not_found(self):
+        with patch('pandas.read_csv', side_effect=FileNotFoundError("File not found")):
+            with self.assertRaises(FileNotFoundError):
+                ProductRecommendationsController()
+
+    def test_get_recommendations_format(self):
+        controller = ProductRecommendationsController()
+        recommendations = controller.get_recommendations()
+        self.assertIsInstance(recommendations, list)
+        if recommendations:
+            self.assertIsInstance(recommendations[0], dict)
