@@ -69,7 +69,7 @@ Para realizar a configuração do ambiente é necessário o docker e o docker-co
 Na primeira vez executando é necessário rodar o build
 
 ```bash
-docker-compose --build
+docker-compose up --build
 ```
 
 Após isso suba a aplicação
