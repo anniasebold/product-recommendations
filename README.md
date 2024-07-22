@@ -138,6 +138,7 @@ Execução da aplicação
 ```bash
 python3 run.py
 ```
+
 Execução dos testes unitários
 ```bash
 pytest
