@@ -1,30 +1,32 @@
 ## 📋 Descrição
 
-A API tem como objetivo receber uma base de dados com informações de compras de produtos e a partir disso indicar produtos recomendados.
+A API tem como objetivo receber uma base de dados com informações de compras de produtos e, a partir disso, indicar produtos recomendados.
 
-## 🔎 Escolha do algoritmo
+## 🔎 Escolha do Algoritmo
 
-O algoritmo de recomendação foi desenvolvido para identificar e recomendar os produtos mais populares e de melhor desempenho de vendas com base em dados históricos. 
+O algoritmo de recomendação foi desenvolvido para identificar e recomendar os produtos mais populares e de melhor desempenho de vendas com base em dados históricos. Inicialmente, não temos informações prévias dos usuários ou do comportamento deles, portanto, a recomendação é baseada exclusivamente em dados de vendas anteriores.
 
-Inicialmente não temos informações prévias dos usuários ou do comportamento deles, portanto, a recomendação é baseada exclusivamente em dados de vendas anteriores.
+### Como o Algoritmo Funciona
 
-### Como o algoritmo funciona:
+1. **Criação de Colunas:**
+   - `total_sales`: Calcula o total de vendas por produto em todo o período analisado.
+   - `store_frequency`: Conta a frequência do produto em cada loja.
+   - `sales_per_store`: Soma das vendas diárias para cada combinação de produto e loja.
 
-  1. Criação de Colunas:
-      - `total_sales`: Calcula o total de vendas por produto em todo o período analisado.
-      - `store_frequency`: Conta a frequência do produto em cada loja.
-      - `sales_per_store`: Soma das vendas diárias para cada combinação de produto e loja.
+2. **Agrupamento e Seleção:**
+   - Os produtos são agrupados por `product_id` e `store_id`, e são calculados os valores de `total_sales`, `store_frequency` e `sales_per_store` para cada grupo.
+   - Para cada produto, a loja com a maior frequência e o maior número total de vendas diárias é selecionada. Isso garante que estamos considerando tanto a frequência de compra na loja quanto o volume de vendas da loja.
 
-  2. Agrupamento e Seleção:
-      - Os produtos são agrupados por `product_id` e `store_id`, e são calculados os valores de `total_sales`, `store_frequency` e `sales_per_store` para cada grupo.
-      - Para cada produto, a loja com a maior frequência e o maior número total de vendas diárias é selecionada. Isso garante que estamos considerando tanto a frequência de compra na loja quanto o volume de vendas da loja.
+3. **Seleção dos Produtos:**
+   - Após identificar a melhor loja para cada produto, os produtos são classificados com base no total de vendas. Os 5 produtos com os maiores totais de vendas são selecionados como recomendações.
 
-  3. Seleção dos Produtos:
-      - Após identificar a melhor loja para cada produto, os produtos são classificados com base no total de vendas. Os 5 produtos com os maiores totais de vendas são selecionados como recomendações.
+Assim, o algoritmo recomenda os 5 produtos mais vendidos, levando em conta a frequência do produto nas lojas e o total de vendas por loja. Isso gera uma recomendação mais assertiva onde são recomendados produtos que têm um alto número de vendas e que têm uma popularidade maior.
 
-- Assim, o algoritmo recomenda os 5 produtos mais vendidos, levando em conta a frequência do produto nas lojas e o total de vendas por loja. Isso gera uma recomendação mais assertiva onde são recomendados produtos que têm um alto número de vendas e que tem uma popularidade maior.
+## 📊 Visualizações dos Dados
 
-## 💻 Tecnologias utilizadas
+- Foram criadas visualizações para melhor compreender os dados utilizados na solução. As visualizações incluem gráficos de vendas por produto, frequência de produtos por loja, entre outros. As visualizações podem ser encontradas na pasta `visualizations` do repositório.
+
+## 💻 Tecnologias Utilizadas
 
 - **Flask**: Framework para a criação de APIs web.
 - **pytest**: Ferramenta de testes unitários para garantir a qualidade do código.
@@ -32,17 +34,17 @@ Inicialmente não temos informações prévias dos usuários ou do comportamento
 - **Docker**: Plataforma de contêineres para criar, distribuir e executar aplicações.
 - **Docker Compose**: Ferramenta para orquestração de aplicações multi-contêiner.
 
-Essas foram as tecnologias utilizadas para construção da aplicação de forma que ela fosse escalável, bem testada e fácil de configurar.
+Essas tecnologias foram utilizadas para garantir que a aplicação fosse escalável, bem testada e fácil de configurar.
 
-# 💾 Como utilizar
+## 📚 Instruções de Uso
 
-## Clonando o repositório
+### Clonando o Repositório
 
 ```bash
 git clone git@github.com:anniasebold/product-recommendations.git
 ```
 
-## Configuração das variáveis de ambiente
+### Configuração das variáveis de ambiente
 
 Criação do arquivo .env
 
@@ -64,8 +66,6 @@ Insira o nome do arquivo e se o arquivo não estiver na mesma pasta do projeto o
 - docker
 - docker-compose
 
-Para realizar a configuração do ambiente é necessário o docker e o docker-compose instalados previamente.
-
 Na primeira vez executando é necessário rodar o build
 
 ```bash
@@ -77,11 +77,11 @@ Após isso suba a aplicação
 docker-compose up web
 ```
 
-A partir da primeira execução o --build não é mais necessário.
+A partir da primeira execução o ?`--build` não é mais necessário.
 
 ## Utilização da aplicação
 
-A aplicação estará disponível: http://127.0.0.1:5000
+A aplicação estará disponível: `http://127.0.0.1:5000`
 
 Exemplo de uso:
 
@@ -94,7 +94,7 @@ curl --request GET \
 
 Substitua __user_id__ pelo user_id respectivo (a verificação não foi implementada então seria fictício).
 
-## Testes unitários
+## 🧪 Testes unitários
 
 Execução dos testes unitários:
 ```bash
@@ -106,16 +106,15 @@ Execução dos teste unitários detalhados:
 docker-compose run tests pytest -s -v
 ```
 
-## Configuração do ambiente virtual (opcional)
+## 🛠️ Configuração do ambiente virtual (opcional)
 
 ### Pré requisitos
 
 - Python 3.9
 - pip
 
-Se você não quiser utilizar o Docker e quiser construir o ambiente na sua máquina é necessário o Python e o pip instalados previamente.
 
-Criação do venv
+Criação do `venv`
 
 ```bash
 python3 -m venv .venv
@@ -148,3 +147,16 @@ Execução dos testes unitários detalhados:
 ```bash
 pytest -s -v
 ```
+
+## ⚠️ Limitações e Possíveis Evoluções
+
+### Limitações Atuais
+
+- A recomendação é baseada exclusivamente em dados históricos de vendas, sem levar em conta preferências individuais dos usuários. 
+- A verificação do user_id não foi implementada.
+
+### Possíveis Evoluções
+
+- Implementar recomendações personalizadas levando em conta o comportamento dos usuários.
+- Adicionar verificações de user_id para garantir recomendações mais seguras e precisas.
+- Melhorar a eficiência do algoritmo para lidar com grandes volumes de dados em tempo real.

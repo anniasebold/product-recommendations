@@ -6,8 +6,9 @@ class ProductRecommendationsController:
     """
         Responsibility for implementing the product recommendation logic
     """
-    def __init__(self):
+    def __init__(self, clean_created_columns = True):
         self.products = pd.read_csv(Config.FILE_PATH, sep=',')
+        self.clean_created_columns = clean_created_columns
         self.create_parameters_columns()
         self.top_products = self.get_top_products()
 
@@ -33,7 +34,8 @@ class ProductRecommendationsController:
         grouped_products = self.group_by_product_and_store()
         top_store = self.get_top_store_and_sales(grouped_products)
         top_products = self.select_top_products(top_store)
-        self.clean_up_columns(top_products)
+        if self.clean_created_columns:
+            self.clean_up_columns(top_products)
         return top_products
 
     def group_by_product_and_store(self):
