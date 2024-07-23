@@ -14,7 +14,7 @@ def generate_sales_by_product_chart(products: List[str], column, label, name):
     plt.xlabel('Produtos')
     plt.ylabel(name)
 
-    output_dir = 'visualizations'
+    output_dir = 'src/visualizations/charts'
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 

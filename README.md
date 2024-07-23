@@ -25,6 +25,12 @@ Assim, o algoritmo recomenda os 5 produtos mais vendidos, levando em conta a fre
 ## 📊 Visualizações dos Dados
 
 - Foram criadas visualizações para melhor compreender os dados utilizados na solução. As visualizações incluem gráficos de vendas por produto, frequência de produtos por loja, entre outros. As visualizações podem ser encontradas na pasta `visualizations` do repositório.
+- Dentro dessa pasta terá o código utilizado para criação dos gráficos e o gráficos criados na pasta `charts`.
+- Para executar novamente a título de curiosidade é só executar:
+
+```bash
+python3 -m src.visualizations.generate_visualizations
+```
 
 ## 💻 Tecnologias Utilizadas
 
